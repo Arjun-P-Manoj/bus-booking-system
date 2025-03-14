@@ -3,45 +3,55 @@ import { addHours } from "date-fns";
 
 const baseTime = new Date();
 
+export interface Bus {
+  id: string;
+  name: string;
+  source: string;
+  destination: string;
+  departureTime: string;
+  arrivalTime: string;
+  fare: number;
+  type: string;
+  availableSeats: number;
+  amenities: string[];
+}
+
 export const mockBuses: Bus[] = [
   {
     id: "1",
     name: "Royal Travels Express",
     source: "Bangalore",
     destination: "Mumbai",
-    departureTime: baseTime.toISOString(),
-    arrivalTime: addHours(baseTime, 12).toISOString(),
+    departureTime: "21:00",
+    arrivalTime: "09:00",
     fare: 1200,
-    totalSeats: 40,
-    availableSeats: 25,
-    type: "AC",
-    amenities: ["WiFi", "USB Charging", "Snacks", "Blanket"],
+    type: "AC Sleeper",
+    availableSeats: 24,
+    amenities: ["WiFi", "USB Charging", "Blanket", "Water Bottle"],
   },
   {
     id: "2",
     name: "City Connect",
     source: "Delhi",
     destination: "Jaipur",
-    departureTime: addHours(baseTime, 2).toISOString(),
-    arrivalTime: addHours(baseTime, 8).toISOString(),
+    departureTime: "08:00",
+    arrivalTime: "14:00",
     fare: 800,
-    totalSeats: 35,
-    availableSeats: 15,
-    type: "Non-AC",
-    amenities: ["Water Bottle", "Newspaper"],
+    type: "AC Seater",
+    availableSeats: 35,
+    amenities: ["WiFi", "USB Charging", "Snacks"],
   },
   {
     id: "3",
-    name: "Mountain Express",
-    source: "Manali",
-    destination: "Shimla",
-    departureTime: addHours(baseTime, 1).toISOString(),
-    arrivalTime: addHours(baseTime, 6).toISOString(),
-    fare: 600,
-    totalSeats: 30,
-    availableSeats: 30,
-    type: "AC",
-    amenities: ["Heater", "WiFi", "Mountain View"],
+    name: "Night Rider",
+    source: "Chennai",
+    destination: "Hyderabad",
+    departureTime: "22:00",
+    arrivalTime: "06:00",
+    fare: 1000,
+    type: "AC Sleeper",
+    availableSeats: 18,
+    amenities: ["WiFi", "USB Charging", "Blanket", "Pillow", "Water Bottle"],
   },
   {
     id: "4",

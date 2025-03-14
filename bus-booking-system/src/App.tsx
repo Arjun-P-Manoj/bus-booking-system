@@ -3,6 +3,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { PublicLayout } from "./components/layout/PublicLayout";
+import { BusList } from "./components/BusList";
 
 export function App() {
   return (
@@ -14,6 +15,14 @@ export function App() {
           element={
             <PublicLayout>
               <Home />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/buses"
+          element={
+            <PublicLayout>
+              <BusList />
             </PublicLayout>
           }
         />
