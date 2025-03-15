@@ -107,88 +107,105 @@ export function Bookings() {
 
   return (
     <Layout>
-      <div className="space-y-6">
-        <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-          <div className="px-4 py-5 sm:p-6">
-            <h1 className="text-2xl font-bold text-gray-900">My Bookings</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="space-y-6">
+          {/* Page Header */}
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div className="px-6 py-5">
+              <h1 className="text-2xl font-semibold text-gray-900">
+                My Bookings
+              </h1>
+            </div>
           </div>
-        </div>
 
-        {/* Upcoming Bookings */}
-        <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-          <div className="px-4 py-5 sm:p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
-              Upcoming Bookings
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filterBookings("confirmed").length > 0 ? (
-                filterBookings("confirmed").map((booking) => (
-                  <BookingCard
-                    key={booking.id}
-                    booking={booking}
-                    onCancel={handleCancelBooking}
-                  />
-                ))
-              ) : (
-                <div className="col-span-full text-center py-8 text-gray-500">
-                  No upcoming bookings found
-                </div>
-              )}
+          {/* Upcoming Bookings */}
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div className="px-6 py-5">
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Upcoming Bookings
+                </h2>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filterBookings("confirmed").length > 0 ? (
+                  filterBookings("confirmed").map((booking) => (
+                    <BookingCard
+                      key={booking.id}
+                      booking={booking}
+                      onCancel={handleCancelBooking}
+                    />
+                  ))
+                ) : (
+                  <div className="col-span-full flex items-center justify-center py-12">
+                    <p className="text-gray-500 text-center">
+                      No upcoming bookings found
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Pending Bookings */}
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div className="px-6 py-5">
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Pending Bookings
+                </h2>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filterBookings("pending").length > 0 ? (
+                  filterBookings("pending").map((booking) => (
+                    <BookingCard
+                      key={booking.id}
+                      booking={booking}
+                      onCancel={handleCancelBooking}
+                    />
+                  ))
+                ) : (
+                  <div className="col-span-full flex items-center justify-center py-12">
+                    <p className="text-gray-500 text-center">
+                      No pending bookings found
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Cancelled Bookings */}
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div className="px-6 py-5">
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Cancelled Bookings
+                </h2>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filterBookings("cancelled").length > 0 ? (
+                  filterBookings("cancelled").map((booking) => (
+                    <BookingCard key={booking.id} booking={booking} />
+                  ))
+                ) : (
+                  <div className="col-span-full flex items-center justify-center py-12">
+                    <p className="text-gray-500 text-center">
+                      No cancelled bookings found
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Pending Bookings */}
-        <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-          <div className="px-4 py-5 sm:p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
-              Pending Bookings
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filterBookings("pending").length > 0 ? (
-                filterBookings("pending").map((booking) => (
-                  <BookingCard
-                    key={booking.id}
-                    booking={booking}
-                    onCancel={handleCancelBooking}
-                  />
-                ))
-              ) : (
-                <div className="col-span-full text-center py-8 text-gray-500">
-                  No pending bookings found
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Cancelled Bookings */}
-        <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-          <div className="px-4 py-5 sm:p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
-              Cancelled Bookings
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filterBookings("cancelled").length > 0 ? (
-                filterBookings("cancelled").map((booking) => (
-                  <BookingCard key={booking.id} booking={booking} />
-                ))
-              ) : (
-                <div className="col-span-full text-center py-8 text-gray-500">
-                  No cancelled bookings found
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <Notification
+          show={notification.show}
+          type={notification.type}
+          message={notification.message}
+          onClose={() => setNotification((prev) => ({ ...prev, show: false }))}
+        />
       </div>
-
-      <Notification
-        show={notification.show}
-        type={notification.type}
-        message={notification.message}
-        onClose={() => setNotification((prev) => ({ ...prev, show: false }))}
-      />
     </Layout>
   );
 }

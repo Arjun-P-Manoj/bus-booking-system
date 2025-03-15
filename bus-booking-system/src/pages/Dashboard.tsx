@@ -71,150 +71,158 @@ export function Dashboard() {
 
   return (
     <AuthLayout>
-      <div className="space-y-6">
-        {/* Welcome Section */}
-        <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-          <div className="px-4 py-5 sm:p-6">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Welcome back, {user?.name}!
-            </h1>
-            <p className="mt-1 text-sm text-gray-500">
-              Find and book your next journey with ease
-            </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="space-y-6">
+          {/* Welcome Section */}
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div className="px-6 py-5">
+              <h1 className="text-2xl font-semibold text-gray-900">
+                Welcome back, {user?.name}!
+              </h1>
+              <p className="mt-1 text-sm text-gray-600">
+                Find and book your next journey with ease
+              </p>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <Link
+              to="/search"
+              className="bg-white shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 group"
+            >
+              <div className="p-5">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="h-6 w-6 text-blue-600 group-hover:text-blue-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-4">
+                    <h2 className="text-lg font-medium text-gray-900 group-hover:text-blue-600">
+                      Book a Ticket
+                    </h2>
+                    <p className="mt-1 text-sm text-gray-600">
+                      Search and book your next journey
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              to="/bookings"
+              className="bg-white shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 group"
+            >
+              <div className="p-5">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="h-6 w-6 text-blue-600 group-hover:text-blue-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-4">
+                    <h2 className="text-lg font-medium text-gray-900 group-hover:text-blue-600">
+                      My Bookings
+                    </h2>
+                    <p className="mt-1 text-sm text-gray-600">
+                      View and manage your bookings
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              to="/profile"
+              className="bg-white shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 group"
+            >
+              <div className="p-5">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="h-6 w-6 text-blue-600 group-hover:text-blue-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-4">
+                    <h2 className="text-lg font-medium text-gray-900 group-hover:text-blue-600">
+                      Profile
+                    </h2>
+                    <p className="mt-1 text-sm text-gray-600">
+                      Update your personal information
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Upcoming Bookings */}
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div className="px-6 py-5">
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Upcoming Bookings
+                </h2>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {upcomingBookings.length > 0 ? (
+                  upcomingBookings.map((booking) => (
+                    <BookingCard
+                      key={booking.id}
+                      booking={booking}
+                      onCancel={handleCancelBooking}
+                    />
+                  ))
+                ) : (
+                  <div className="col-span-full flex items-center justify-center py-12">
+                    <p className="text-gray-500 text-center">
+                      No upcoming bookings found
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <Link
-            to="/search"
-            className="bg-white overflow-hidden shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200"
-          >
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="h-6 w-6 text-primary-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-4">
-                  <h2 className="text-lg font-medium text-gray-900">
-                    Book a Ticket
-                  </h2>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Search and book your next journey
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            to="/bookings"
-            className="bg-white overflow-hidden shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200"
-          >
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="h-6 w-6 text-primary-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-4">
-                  <h2 className="text-lg font-medium text-gray-900">
-                    My Bookings
-                  </h2>
-                  <p className="mt-1 text-sm text-gray-500">
-                    View and manage your bookings
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            to="/profile"
-            className="bg-white overflow-hidden shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200"
-          >
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="h-6 w-6 text-primary-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-4">
-                  <h2 className="text-lg font-medium text-gray-900">Profile</h2>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Update your personal information
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </div>
-
-        {/* Upcoming Bookings */}
-        <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-          <div className="px-4 py-5 sm:p-6">
-            <h2 className="text-lg font-medium text-gray-900">
-              Upcoming Bookings
-            </h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {upcomingBookings.length > 0 ? (
-                upcomingBookings.map((booking) => (
-                  <BookingCard
-                    key={booking.id}
-                    booking={booking}
-                    onCancel={handleCancelBooking}
-                  />
-                ))
-              ) : (
-                <div className="col-span-full text-center text-sm text-gray-500 py-8">
-                  No upcoming bookings found
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <Notification
+          show={notification.show}
+          type={notification.type}
+          message={notification.message}
+          onClose={() => setNotification((prev) => ({ ...prev, show: false }))}
+        />
       </div>
-
-      <Notification
-        show={notification.show}
-        type={notification.type}
-        message={notification.message}
-        onClose={() => setNotification((prev) => ({ ...prev, show: false }))}
-      />
     </AuthLayout>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Nav from "./Nav";
+import { useNavigate } from "react-router-dom";
 
 interface BusFeature {
   icon: string;
@@ -20,6 +21,7 @@ interface Bus {
 }
 
 const BusListing: React.FC = () => {
+  const navigate = useNavigate();
   const [availableBuses] = useState<Bus[]>([
     {
       id: "1",
@@ -56,8 +58,8 @@ const BusListing: React.FC = () => {
     },
   ]);
 
-  const handleBookNow = () => {
-    alert("Booking functionality coming soon!");
+  const handleBookNow = (busId: string) => {
+    navigate(`/buses/${busId}/seats`);
   };
 
   return (
@@ -200,7 +202,7 @@ const BusListing: React.FC = () => {
                   </div>
 
                   <button
-                    onClick={handleBookNow}
+                    onClick={() => handleBookNow(bus.id)}
                     className="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-lg text-white overflow-hidden group w-full sm:w-auto"
                   >
                     <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-600 to-indigo-500"></span>

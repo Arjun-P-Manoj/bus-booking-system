@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import BusListing from "./components/BusListing";
+import { SeatSelection } from "./components/seat-selection/SeatSelection";
 import Nav from "./components/Nav";
+import Dashboard from "./components/Dashboard";
+import { AuthProvider } from "./context/AuthContext";
 
 function Home() {
   return (
@@ -154,14 +157,19 @@ function Home() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/buses" element={<BusListing />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/buses" element={<BusListing />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/bookings" element={<Dashboard />} />
+          <Route path="/buses/:id/seats" element={<SeatSelection />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

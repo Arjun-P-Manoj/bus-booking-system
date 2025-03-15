@@ -31,9 +31,11 @@ const Nav: React.FC = () => {
               }`}
             >
               Home
-              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
-                isActive("/") ? "w-full" : ""
-              }`}></span>
+              <span
+                className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
+                  isActive("/") ? "w-full" : ""
+                }`}
+              ></span>
             </Link>
             <Link
               to="/buses"
@@ -44,9 +46,26 @@ const Nav: React.FC = () => {
               }`}
             >
               Available Buses
-              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
-                isActive("/buses") ? "w-full" : ""
-              }`}></span>
+              <span
+                className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
+                  isActive("/buses") ? "w-full" : ""
+                }`}
+              ></span>
+            </Link>
+            <Link
+              to="/dashboard"
+              className={`text-[15px] font-medium transition-all duration-200 relative group ${
+                isActive("/dashboard")
+                  ? "text-indigo-600"
+                  : "text-gray-600 hover:text-indigo-600"
+              }`}
+            >
+              Dashboard
+              <span
+                className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
+                  isActive("/dashboard") ? "w-full" : ""
+                }`}
+              ></span>
             </Link>
             <Link
               to="/login"
@@ -60,8 +79,18 @@ const Nav: React.FC = () => {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
           </div>
@@ -71,4 +100,4 @@ const Nav: React.FC = () => {
   );
 };
 
-export default Nav; 
+export default Nav;
