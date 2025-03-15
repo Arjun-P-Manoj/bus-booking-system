@@ -1,5 +1,13 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import BusListing from "./components/BusListing";
@@ -7,8 +15,147 @@ import { SeatSelection } from "./components/seat-selection/SeatSelection";
 import Nav from "./components/Nav";
 import Dashboard from "./components/Dashboard";
 import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
+
+// Protected Route Component
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const { user, isLoading } = useAuth();
+  const location = useLocation();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
+};
+
+// Public Route Component (for Login/Signup)
+const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user } = useAuth();
+  const location = useLocation();
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+// AuthenticatedLayout Component
+const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
+
+  return (
+    <div>
+      <nav className="bg-white/95 backdrop-blur-lg shadow-sm fixed w-full z-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex justify-between h-24">
+            <div className="flex-shrink-0 flex items-center">
+              <Link
+                to="/"
+                className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 relative group"
+              >
+                BusBooking
+                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-indigo-500 group-hover:w-full transition-all duration-300"></span>
+              </Link>
+            </div>
+            <div className="hidden md:flex items-center space-x-12">
+              <Link
+                to="/buses"
+                className={`text-[15px] font-medium transition-all duration-200 relative group ${
+                  location.pathname === "/buses"
+                    ? "text-indigo-600"
+                    : "text-gray-600 hover:text-indigo-600"
+                }`}
+              >
+                Available Buses
+                <span
+                  className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
+                    location.pathname === "/buses" ? "w-full" : ""
+                  }`}
+                ></span>
+              </Link>
+              <Link
+                to="/dashboard"
+                className={`text-[15px] font-medium transition-all duration-200 relative group ${
+                  location.pathname === "/dashboard"
+                    ? "text-indigo-600"
+                    : "text-gray-600 hover:text-indigo-600"
+                }`}
+              >
+                Dashboard
+                <span
+                  className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
+                    location.pathname === "/dashboard" ? "w-full" : ""
+                  }`}
+                ></span>
+              </Link>
+              <div className="flex items-center space-x-6">
+                <span className="text-[15px] text-gray-600">
+                  Welcome, {user?.name}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="relative inline-flex items-center justify-center px-6 py-2.5 text-[15px] font-medium rounded-lg text-white overflow-hidden group"
+                >
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-600 to-indigo-500"></span>
+                  <span className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-indigo-500 to-indigo-400"></span>
+                  <span className="relative">Logout</span>
+                </button>
+              </div>
+            </div>
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <button className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <main className="pt-24 min-h-screen bg-gray-50">{children}</main>
+    </div>
+  );
+};
 
 function Home() {
+  const { user } = useAuth();
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <Nav />
@@ -161,12 +308,52 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/buses" element={<BusListing />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/bookings" element={<Dashboard />} />
-          <Route path="/buses/:id/seats" element={<SeatSelection />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/buses"
+            element={
+              <div>
+                <Nav />
+                <BusListing />
+              </div>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <Dashboard />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/buses/:id/seats"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <SeatSelection />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </AuthProvider>

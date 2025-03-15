@@ -53,21 +53,6 @@ const Nav: React.FC = () => {
               ></span>
             </Link>
             <Link
-              to="/dashboard"
-              className={`text-[15px] font-medium transition-all duration-200 relative group ${
-                isActive("/dashboard")
-                  ? "text-indigo-600"
-                  : "text-gray-600 hover:text-indigo-600"
-              }`}
-            >
-              Dashboard
-              <span
-                className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300 ${
-                  isActive("/dashboard") ? "w-full" : ""
-                }`}
-              ></span>
-            </Link>
-            <Link
               to="/login"
               className="relative inline-flex items-center justify-center px-6 py-2.5 text-[15px] font-medium rounded-lg text-white overflow-hidden group"
             >
