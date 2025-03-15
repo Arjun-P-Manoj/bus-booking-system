@@ -1,93 +1,78 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import BusListing from "./components/BusListing";
+import Nav from "./components/Nav";
 
-function App() {
+function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation Bar */}
-      <nav className="bg-white shadow-md fixed w-full z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-20 items-center">
-            <div className="flex-shrink-0">
-              <span className="text-3xl font-bold text-indigo-600 hover:text-indigo-500 cursor-pointer transition-all duration-300 relative group">
-                BusBooking
-                <span className="absolute inset-0 rounded-lg bg-indigo-400 opacity-0 group-hover:opacity-50 blur-xl -z-10 transition-all duration-300"></span>
-              </span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#"
-                className="relative group bg-transparent text-lg text-gray-700 hover:text-indigo-500 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-500 before:transition-all before:duration-300"
-              >
-                Home
-                <span className="absolute inset-0 rounded-lg bg-indigo-400 opacity-0 group-hover:opacity-20 blur-xl -z-10 transition-all duration-300"></span>
-              </a>
-              <a
-                href="#"
-                className="relative group bg-transparent text-lg text-gray-700 hover:text-indigo-500 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-500 before:transition-all before:duration-300"
-              >
-                Available Buses
-                <span className="absolute inset-0 rounded-lg bg-indigo-400 opacity-0 group-hover:opacity-20 blur-xl -z-10 transition-all duration-300"></span>
-              </a>
-              <button className="relative group bg-indigo-600 text-white px-8 py-3 text-lg rounded-lg hover:bg-indigo-500 hover:shadow-lg hover:scale-105 transition-all duration-300 transform before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-300 before:transition-all before:duration-300">
-                Login
-                <span className="absolute inset-0 rounded-lg bg-indigo-400 opacity-0 group-hover:opacity-50 blur-xl -z-10 transition-all duration-300"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Nav />
 
       {/* Hero Section */}
-      <div className="pt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+      <div className="pt-28 pb-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               Book Your Bus Journey{" "}
-              <span className="text-indigo-600">with Ease</span>
+              <span className="bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent">
+                with Ease
+              </span>
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
               Experience comfortable and hassle-free bus travel with our easy
               booking system. Find the best routes and prices for your journey.
             </p>
-            <div className="space-x-4 pt-2">
-              <button className="relative group bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-500 hover:shadow-lg transform hover:scale-105 transition-all duration-300 before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-300 before:transition-all before:duration-300">
-                Get Started
-                <span className="absolute inset-0 rounded-lg bg-indigo-400 opacity-0 group-hover:opacity-50 blur-xl -z-10 transition-all duration-300"></span>
-              </button>
-              <button className="relative group border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-50 hover:shadow-lg transform hover:scale-105 transition-all duration-300 before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-400 before:transition-all before:duration-300">
-                Login
-                <span className="absolute inset-0 rounded-lg bg-indigo-400 opacity-0 group-hover:opacity-20 blur-xl -z-10 transition-all duration-300"></span>
-              </button>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="/signup"
+                className="relative inline-flex items-center justify-center px-6 py-2.5 text-sm sm:text-[15px] font-medium rounded-lg text-white overflow-hidden group w-full sm:w-auto"
+              >
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-600 to-indigo-500"></span>
+                <span className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-indigo-500 to-indigo-400"></span>
+                <span className="relative">Get Started</span>
+              </a>
+              <a
+                href="/login"
+                className="relative inline-flex items-center justify-center px-6 py-2.5 text-sm sm:text-[15px] font-medium rounded-lg overflow-hidden group bg-white w-full sm:w-auto"
+              >
+                <span className="absolute inset-0 w-full h-full border-2 border-indigo-600 rounded-lg"></span>
+                <span className="relative text-indigo-600 group-hover:text-indigo-500 transition-colors duration-200">
+                  Login
+                </span>
+              </a>
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:block relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-transparent rounded-xl"></div>
             <img
               src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80"
               alt="Modern Bus"
-              className="rounded-lg shadow-lg"
+              className="rounded-xl shadow-lg w-full h-auto object-cover"
             />
           </div>
         </div>
       </div>
 
       {/* Features Section */}
-      <div className="bg-gray-50 py-6 mt-2">
+      <div className="bg-gray-50/50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Why Choose Us
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent mb-2">
+              Why Choose Us?
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
               Experience the best bus booking service with our premium features
               and customer support.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group relative before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-500 before:transition-all before:duration-300">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-200 transition-colors duration-300">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-100 transition-all duration-300 group">
+              <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-100 transition-colors duration-300">
                 <svg
-                  className="w-6 h-6 text-indigo-600 group-hover:text-indigo-700"
+                  className="w-6 h-6 text-indigo-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -100,20 +85,20 @@ function App() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-300">
                 Wide Network
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Access to extensive routes across the country with multiple
                 options for your journey.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group relative before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-500 before:transition-all before:duration-300">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-200 transition-colors duration-300">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-100 transition-all duration-300 group">
+              <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-100 transition-colors duration-300">
                 <svg
-                  className="w-6 h-6 text-indigo-600 group-hover:text-indigo-700"
+                  className="w-6 h-6 text-indigo-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -126,20 +111,20 @@ function App() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-300">
                 Best Prices
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Competitive pricing with special discounts and offers for
                 frequent travelers.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 group relative before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent before:hover:border-indigo-500 before:transition-all before:duration-300">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-200 transition-colors duration-300">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-100 transition-all duration-300 group">
+              <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-100 transition-colors duration-300">
                 <svg
-                  className="w-6 h-6 text-indigo-600 group-hover:text-indigo-700"
+                  className="w-6 h-6 text-indigo-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -152,10 +137,10 @@ function App() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-300">
                 Easy Booking
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Simple and secure booking process with instant confirmation and
                 support.
               </p>
@@ -164,6 +149,19 @@ function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/buses" element={<BusListing />} />
+      </Routes>
+    </Router>
   );
 }
 
