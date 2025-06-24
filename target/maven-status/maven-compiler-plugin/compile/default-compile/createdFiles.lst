@@ -21,6 +21,7 @@ BusManagementBooking/bus/buses/BusAddRequestDTO.class
 BusManagementBooking/bus/buses/BusService.class
 BusManagementBooking/bus/buses/BusController.class
 BusManagementBooking/bus/user/UserAddRequestDTO.class
+BusManagementBooking/bus/TestController.class
 BusManagementBooking/bus/booking/BookingRepository.class
 BusManagementBooking/bus/booking/BookingServiceImpl.class
 BusManagementBooking/bus/user/User.class
