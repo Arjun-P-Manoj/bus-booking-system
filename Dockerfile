@@ -1,24 +1,25 @@
+# ------------ Build Stage ------------
 
-# Use Maven + JDK image to build
-FROM maven:3.9.4-eclipse-temurin-17 as builder
+# Use Maven + Java 17 image
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
-# Copy everything into container
+# Copy all project files
 COPY . .
 
-# Build the app (skip tests to avoid errors)
+# Run Maven build (skip tests)
 RUN mvn clean package -DskipTests
 
-# ==============================
+# ------------ Run Stage ------------
 
-# Use a smaller JDK image to run the app
+# Use lighter JDK image to run the app
 FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-# Copy built jar from the first stage
-COPY --from=builder /app/target/*.jar app.jar
+# Copy jar file from build stage
+COPY --from=build /app/target/*.jar app.jar
 
-# Run the Spring Boot application
+# Start the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
